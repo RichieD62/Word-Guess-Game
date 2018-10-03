@@ -1,13 +1,64 @@
 
 
-var word = document.getElementById("currentWord");
-var numGuessesLeft = guesses.innerHTML;
+
+//Create an array of words
+var word = ["turkey", "chicken", "eagle", "hawk", "ostrich"];
+//Choose Randomly
+var numGen = Math.floor(Math.random() *word.length);
+var chosenWord = word[numGen];
+var underScore = [];
+var rightWord = [];
+var wrongWord = [];
+
+//DOM Manipulation 
+var docUnderScore = document.getElementById("underscores");
 var letGuessed  = document.getElementById("lettersguessed");
 var button = document.getElementById("button");
-var possibleWord = [["_", "_", "_", "_", "_", "_",], ["_", "_", "_", "_", "_", "_", "_",], ["_", "_", "_", "_", "_"], ["_", "_", "_", "_"], ["_", "_", "_", "_", "_", "_", "_",]];
-//var possibleWord = ["Turkey", "Chicken", "Eagle", "Hawk", "Ostrich"];
-var numGen = Math.random();
 
+//Testing
+console.log(chosenWord);
+
+//Create underscores based on length of the word
+function generateUnderscore(){
+    for (var i = 0; i<chosenWord.length; i++){
+        underScore.push("_");
+    }
+    return underScore;
+}
+
+console.log(generateUnderscore());
+//Get users guess
+document.addEventListener("keypress", (event) => {
+    var keyword = String.fromCharCode(event.keyCode);
+//If users guess is right, 
+    if (chosenWord.indexOf(keyword) > -1){
+        rightWord.push(keyword);
+        underScore[chosenWord.indexOf(keyword)] = keyword;
+    } if (underScore.join("") == chosenWord){
+        alert("You Win!");
+//If users guess is wrong,
+    } else {
+        wrongWord.push(keyword);
+        console.log(wrongWord);
+    }
+});
+
+
+document.getElementById("underscores").innerHTML = generateUnderscore().join(" ");;
+
+console.log(generateUnderscore());
+
+
+
+//Check if the guess is right
+//If right, push to right array
+//If wrong, push to wrong array
+
+
+
+
+
+/*
 
 //I am trying to get the "New Word" button spawn a new word from the array "possibleWord"
 function random(){
@@ -85,4 +136,4 @@ function gLeft(){
 //if it has been pushed, alert("you already guessed that!") do not remove one from numGuessesLeft
 //if the key has not been pushed but is not correct, then reduce one from guessesLeft and enter the incorrect letter into the lettersGuessed Section
         //I imagine I could use some .innerHTML function to recognize the key pushed and push it into that section.
-
+*/
