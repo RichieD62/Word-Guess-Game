@@ -9,17 +9,20 @@ var chosenWord = word[numGen];
 var underScore = [];
 var rightWord = [];
 var wrongWord = [];
-var currentGuesses = [8];
+var currentGuesses = 8;
+var gameOver = true;
+
 
 //DOM Manipulation 
 var docUnderScore = document.getElementsByClassName("underscores");
 var docWrongGuess  = document.getElementsByClassName("lettersGuessed");
 var docGuessesLeft = document.getElementsByClassName("guesses");
-var button = document.getElementById("button");
+var restartButton = document.getElementById("restartButton");
+
 
 //Testing
 console.log(chosenWord);
-
+    
 
 //Create underscores based on length of the word
 function generateUnderscore(){
@@ -28,6 +31,14 @@ function generateUnderscore(){
         underScore.push("_");
     }
     return underScore;
+}
+
+function restartGame() {
+    chosenWord = word[numGen];
+    underScore = [];
+    rightWord = [];
+    wrongWord = [];
+    currentGuesses = 8;
 }
 
 //Get users guess
@@ -51,17 +62,16 @@ document.addEventListener("keypress", (event) => {
     }  
     
     //If the key pressed matches a letter in the array, replace the underscore with the correct letter in the correct position
-     if (underScore.join("") == chosenWord){
-        alert("You Win!");
-     } else if (currentGuesses == 0){
-         alert("You lose!");
-     }
+        if (underScore.join("") == chosenWord){
+            alert("You Win!");
+            restartGame();
+        } else if (currentGuesses == 0){
+            alert("You lose!");
+            restartGame();
+        }
 
-//If users guess is wrong,
-    
+
 });
-
-
 
 
 
