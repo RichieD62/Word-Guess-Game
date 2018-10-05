@@ -9,11 +9,12 @@ var chosenWord = word[numGen];
 var underScore = [];
 var rightWord = [];
 var wrongWord = [];
-var currentGuesses = 8;
+var currentGuesses = [8];
 
 //DOM Manipulation 
 var docUnderScore = document.getElementsByClassName("underscores");
 var docWrongGuess  = document.getElementsByClassName("lettersGuessed");
+var docGuessesLeft = document.getElementsByClassName("guesses");
 var button = document.getElementById("button");
 
 //Testing
@@ -42,8 +43,10 @@ document.addEventListener("keypress", (event) => {
     } else {
         wrongWord.push(keyword);
         docWrongGuess[0].innerHTML = wrongWord.join("  ");
-        document.getElementsByClassName("guesses").innerHTML = currentGuesses;
         currentGuesses--;
+        docGuessesLeft[0].innerHTML = currentGuesses
+        
+        
         console.log(currentGuesses);
     }  
     
