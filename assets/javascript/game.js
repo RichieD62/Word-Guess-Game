@@ -10,7 +10,6 @@ var underScore = [];
 var rightWord = [];
 var wrongWord = [];
 var currentGuesses = 8;
-var gameOver = true;
 
 
 //DOM Manipulation 
