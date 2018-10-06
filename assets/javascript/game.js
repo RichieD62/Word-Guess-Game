@@ -4,23 +4,26 @@
 //Create an array of words
 var word = ["lions", "bears", "packers", "falcons", "giants", "panthers", "rams", "chiefs", "ravens", "browns", "colts", "dolphins","bengals", "jets", "texans"];
 //Choose Randomly
-var numGen = Math.floor(Math.random() *word.length);
-var chosenWord = word[numGen];
+
+var chosenWord = "";
 var underScore = [];
 var rightWord = [];
 var wrongWord = [];
 var currentGuesses = 8;
+var currentWins = 0;
 
 
 //DOM Manipulation 
 var docUnderScore = document.getElementsByClassName("underscores");
 var docWrongGuess  = document.getElementsByClassName("lettersGuessed");
 var docGuessesLeft = document.getElementsByClassName("guesses");
+var docNumWins = document.getElementsByClassName("numWins");
 
 
 //Testing
 
-function chosenWord(){
+function wordChooser(){
+    var numGen = Math.floor(Math.random() *word.length);
     chosenWord = word[numGen];
 }
     
@@ -35,13 +38,17 @@ function generateUnderscore(){
     return underScore;
 }
 
+
 function restartGame() {
     underScore = [];
     rightWord = [];
     wrongWord = [];
     currentGuesses = 8;
+    wordChooser();
     generateUnderscore();
-    chosenWord();
+    docUnderScore[0].innerHTML = underScore.join(" ");
+    docWrongGuess[0].innerHTML = wrongWord.join("  ");
+    docGuessesLeft[0].innerHTML = currentGuesses;
 }
 
 function winLose(){
@@ -49,6 +56,8 @@ function winLose(){
     if (underScore.join("") == chosenWord){
         alert("You Win!");
         restartGame();
+        currentWins++
+        docNumWins[0].innerHTML = currentWins;
     } else if (currentGuesses == 0){
         alert("You lose!");
         restartGame();
@@ -70,7 +79,7 @@ function runScript(){
             wrongWord.push(keyword);
             docWrongGuess[0].innerHTML = wrongWord.join("  ");
             currentGuesses--;
-            docGuessesLeft[0].innerHTML = currentGuesses
+            docGuessesLeft[0].innerHTML = currentGuesses;
             winLose();
             
             console.log(currentGuesses);
@@ -81,6 +90,7 @@ function runScript(){
 }
 
 runScript();
+wordChooser();
 docUnderScore[0].innerHTML = generateUnderscore().join(" ");
 
 //I could not figure out how to get a restart function restart the program. I need help to figure that out.
