@@ -2,7 +2,7 @@
 
 
 //Create an array of words
-var word = ["turkey", "falcon", "grouse", "hawk", "ostrich"];
+var word = ["lions", "bears", "packers", "falcons", "giants", "panthers", "rams", "chiefs", "ravens", "browns", "colts", "dolphins","bengals", "jets", "texans"];
 //Choose Randomly
 var numGen = Math.floor(Math.random() *word.length);
 var chosenWord = word[numGen];
@@ -16,12 +16,15 @@ var currentGuesses = 8;
 var docUnderScore = document.getElementsByClassName("underscores");
 var docWrongGuess  = document.getElementsByClassName("lettersGuessed");
 var docGuessesLeft = document.getElementsByClassName("guesses");
-var restartButton = document.getElementById("restartButton");
 
 
 //Testing
-console.log(chosenWord);
+
+function chosenWord(){
+    chosenWord = word[numGen];
+}
     
+console.log(chosenWord);
 
 //Create underscores based on length of the word
 function generateUnderscore(){
@@ -33,49 +36,52 @@ function generateUnderscore(){
 }
 
 function restartGame() {
-    chosenWord = word[numGen];
     underScore = [];
     rightWord = [];
     wrongWord = [];
     currentGuesses = 8;
+    generateUnderscore();
+    chosenWord();
 }
 
-//Get users guess
-document.addEventListener("keypress", (event) => {
-    var keyword = String.fromCharCode(event.keyCode);
+function winLose(){
 
-//If users guess is right, (add a for loop)
-    if (chosenWord.indexOf(keyword) > -1){
-        rightWord.push(keyword);
-        underScore[chosenWord.indexOf(keyword)] = keyword;
-        docUnderScore[0].innerHTML = underScore.join(" ");
+    if (underScore.join("") == chosenWord){
+        alert("You Win!");
+        restartGame();
+    } else if (currentGuesses == 0){
+        alert("You lose!");
+        restartGame();
+    }
+}
 
-    } else {
-        wrongWord.push(keyword);
-        docWrongGuess[0].innerHTML = wrongWord.join("  ");
-        currentGuesses--;
-        docGuessesLeft[0].innerHTML = currentGuesses
+function runScript(){
+    document.addEventListener("keypress", (event) => {
+        var keyword = String.fromCharCode(event.keyCode);
+
+    //If users guess is right
+        if (chosenWord.indexOf(keyword) > -1){
+            rightWord.push(keyword);
+            underScore[chosenWord.indexOf(keyword)] = keyword;
+            docUnderScore[0].innerHTML = underScore.join(" ");
+            winLose();
+            
+        } else {
+            wrongWord.push(keyword);
+            docWrongGuess[0].innerHTML = wrongWord.join("  ");
+            currentGuesses--;
+            docGuessesLeft[0].innerHTML = currentGuesses
+            winLose();
+            
+            console.log(currentGuesses);
+        }   
         
-        
-        console.log(currentGuesses);
-    }  
-    
-    //If the key pressed matches a letter in the array, replace the underscore with the correct letter in the correct position
-        if (underScore.join("") == chosenWord){
-            alert("You Win!");
-            restartGame();
-        } else if (currentGuesses == 0){
-            alert("You lose!");
-            restartGame();
-        }
+       
+    });
+}
 
-
-});
-
-
-
+runScript();
 docUnderScore[0].innerHTML = generateUnderscore().join(" ");
 
-
-
-
+//I could not figure out how to get a restart function restart the program. I need help to figure that out.
+//I also could not figure out the win counter. I would have needed to figure out how to restart the game first otherwise the page would have just kept resetting the score.
