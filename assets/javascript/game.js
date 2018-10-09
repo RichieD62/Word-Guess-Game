@@ -27,7 +27,7 @@ function wordChooser(){
     chosenWord = word[numGen];
 }
     
-console.log(chosenWord);
+
 
 //Create underscores based on length of the word
 function generateUnderscore(){
